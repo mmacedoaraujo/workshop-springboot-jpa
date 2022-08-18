@@ -13,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "users_table")
 public class User implements Serializable {
@@ -30,7 +32,8 @@ public class User implements Serializable {
 	private String userPhone;
 	@Column(name = "Password")
 	private String userPassword;
-	
+
+	@JsonIgnore
 	@OneToMany(mappedBy = "client")
 	private List<Order> orders = new ArrayList<>();
 
