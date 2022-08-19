@@ -48,6 +48,17 @@ public class TestConfig implements CommandLineRunner {
 		Product product4 = new Product(null, "Pc Gamer", "Lorem Ipsum dolor sit amet, consecteur.", 1200.0, "");
 		Product product5 = new Product(null, "Rails for Dummies", "Lorem Ipsum dolor sit amet, consecteur.", 100.99,
 				"");
+		productRepo.saveAll(Arrays.asList(product1, product2, product3, product4, product5));
+		categoryRepo.saveAll(Arrays.asList(category1, category2, category3));
+
+		product1.getCategories().add(category2);
+		product2.getCategories().add(category1);
+		product2.getCategories().add(category3);
+		product3.getCategories().add(category3);
+		product4.getCategories().add(category3);
+		product5.getCategories().add(category2);
+
+		productRepo.saveAll(Arrays.asList(product1, product2, product3, product4, product5));
 
 		User user1 = new User(null, "Maria", "maria@gmail.com", "999009898998", "89812398109328");
 		User user2 = new User(null, "Alex Green", "alex@gmail.com", "9879287987", "0192381098");
@@ -56,8 +67,6 @@ public class TestConfig implements CommandLineRunner {
 		Order order2 = new Order(null, Instant.parse("2022-08-18T15:53:07Z"), user2, OrderStatus.WAITING_PAYMENT);
 		Order order3 = new Order(null, Instant.parse("2022-08-16T10:53:07Z"), user1, OrderStatus.WAITING_PAYMENT);
 
-		productRepo.saveAll(Arrays.asList(product1, product2, product3, product4, product5));
-		categoryRepo.saveAll(Arrays.asList(category1, category2, category3));
 		userRepo.saveAll(Arrays.asList(user1, user2));
 		orderRepo.saveAll(Arrays.asList(order1, order2, order3));
 	}
