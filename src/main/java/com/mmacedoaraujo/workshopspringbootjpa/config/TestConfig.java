@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Profile;
 
 import com.mmacedoaraujo.workshopspringbootjpa.entities.Category;
 import com.mmacedoaraujo.workshopspringbootjpa.entities.Order;
+import com.mmacedoaraujo.workshopspringbootjpa.entities.OrderItem;
 import com.mmacedoaraujo.workshopspringbootjpa.entities.Product;
 import com.mmacedoaraujo.workshopspringbootjpa.entities.User;
 import com.mmacedoaraujo.workshopspringbootjpa.entities.enums.OrderStatus;
@@ -69,6 +70,11 @@ public class TestConfig implements CommandLineRunner {
 
 		userRepo.saveAll(Arrays.asList(user1, user2));
 		orderRepo.saveAll(Arrays.asList(order1, order2, order3));
+		
+		OrderItem orderItem1 = new OrderItem(order1, product1, 2, product1.getPrice());
+		OrderItem orderItem2 = new OrderItem(order1, product3, 1, product3.getPrice());
+		OrderItem orderItem3 = new OrderItem(order2, product3, 2, product3.getPrice());
+		OrderItem orderItem4 = new OrderItem(order3, product5, 2, product5.getPrice());
 	}
 
 }
