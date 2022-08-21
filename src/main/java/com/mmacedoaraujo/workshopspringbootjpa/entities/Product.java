@@ -31,7 +31,9 @@ public class Product implements Serializable {
 	@ManyToMany
 	@JoinTable(name = "product_category_table", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
 	private Set<Category> categories = new HashSet<>();
-	
+
+	// used the "id.product" because we access the Product in OrderItemPK through
+	// the id instance in the OrderItem class
 	@OneToMany(mappedBy = "id.product")
 	private Set<OrderItem> items = new HashSet<>();
 
@@ -90,6 +92,17 @@ public class Product implements Serializable {
 
 	public Set<Category> getCategories() {
 		return categories;
+	}
+
+	public Set<Order> getOrders() {
+		// going through my collection of OrderItem and adding them to a new Set for
+		// retrieving the data
+		Set<Order> set = new HashSet<>();
+		for (OrderItem x : items) {
+			set.add(x.getOrder());
+		}
+
+		return set;
 	}
 
 	@Override
