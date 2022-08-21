@@ -15,6 +15,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "products_table")
 public class Product implements Serializable {
@@ -93,10 +95,11 @@ public class Product implements Serializable {
 	public Set<Category> getCategories() {
 		return categories;
 	}
-
+	
+	@JsonIgnore
 	public Set<Order> getOrders() {
-		// going through my collection of OrderItem and adding them to a new Set for
-		// retrieving the data
+		// going through my collection of OrderItem called items and adding them to a
+		// new Set for retrieving the data
 		Set<Order> set = new HashSet<>();
 		for (OrderItem x : items) {
 			set.add(x.getOrder());

@@ -33,6 +33,7 @@ public class OrderItem implements Serializable {
 		this.price = price;
 	}
 
+	// using this annotation to avoid loops problem when this method receive a call
 	@JsonIgnore
 	public Order getOrder() {
 		return id.getOrder();
