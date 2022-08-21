@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Profile;
 import com.mmacedoaraujo.workshopspringbootjpa.entities.Category;
 import com.mmacedoaraujo.workshopspringbootjpa.entities.Order;
 import com.mmacedoaraujo.workshopspringbootjpa.entities.OrderItem;
+import com.mmacedoaraujo.workshopspringbootjpa.entities.Payment;
 import com.mmacedoaraujo.workshopspringbootjpa.entities.Product;
 import com.mmacedoaraujo.workshopspringbootjpa.entities.User;
 import com.mmacedoaraujo.workshopspringbootjpa.entities.enums.OrderStatus;
@@ -81,6 +82,11 @@ public class TestConfig implements CommandLineRunner {
 		OrderItem orderItem4 = new OrderItem(order3, product5, 2, product5.getPrice());
 
 		orderItemRepo.saveAll(Arrays.asList(orderItem1, orderItem2, orderItem3, orderItem4));
+
+		Payment payment1 = new Payment(null, Instant.parse("2022-08-17T21:53:07Z"), order1);
+		order1.setPayment(payment1);
+
+		orderRepo.save(order1);
 	}
 
 }
