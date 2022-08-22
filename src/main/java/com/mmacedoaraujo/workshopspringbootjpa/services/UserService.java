@@ -20,7 +20,12 @@ public class UserService {
 	}
 
 	public User findByID(Long id) {
-		Optional<User> userObj = userRepo.findById(id);
-		return userObj.get();
+		Optional<User> obj = userRepo.findById(id);
+		return obj.get();
 	}
+
+	public User insert(User user) {
+		return userRepo.save(user);
+	}
+
 }
