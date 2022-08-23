@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.mmacedoaraujo.workshopspringbootjpa.entities.User;
 import com.mmacedoaraujo.workshopspringbootjpa.repositories.UserRepository;
+import com.mmacedoaraujo.workshopspringbootjpa.services.exceptions.DatabaseException;
 import com.mmacedoaraujo.workshopspringbootjpa.services.exceptions.ResourceNotFoundException;
 
 @Service
@@ -38,8 +39,7 @@ public class UserService {
 		} catch (EmptyResultDataAccessException ex) {
 			throw new ResourceNotFoundException(id);
 		} catch (DataIntegrityViolationException ex) {
-			ex.printStackTrace();
-
+			throw new DatabaseException(ex.getMessage());
 		}
 	}
 
