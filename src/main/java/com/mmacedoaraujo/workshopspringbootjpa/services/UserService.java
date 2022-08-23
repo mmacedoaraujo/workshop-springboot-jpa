@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.mmacedoaraujo.workshopspringbootjpa.entities.User;
@@ -22,7 +24,7 @@ public class UserService {
 
 	public User findByID(Long id) {
 		Optional<User> obj = userRepo.findById(id);
-		//throwing exception
+		// throwing exception
 		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 
@@ -31,7 +33,14 @@ public class UserService {
 	}
 
 	public void delete(Long id) {
-		userRepo.deleteById(id);
+		try {
+			userRepo.deleteById(id);
+		} catch (EmptyResultDataAccessException ex) {
+			throw new ResourceNotFoundException(id);
+		} catch (DataIntegrityViolationException ex) {
+			ex.printStackTrace();
+
+		}
 	}
 
 	public User update(Long id, User obj) {
